@@ -11,7 +11,7 @@ from pyspark import SparkConf, SparkContext
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-            print("Usage: netflixanalyze.py <file>", file=sys.stderr)
+            print("Usage: analyze.py <file>", file=sys.stderr)
             exit(-1)
 
     spark = SparkSession\
