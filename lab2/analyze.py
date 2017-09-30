@@ -11,27 +11,35 @@ from pyspark import SparkConf, SparkContext
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-            print("Usage: analyze.py <file>", file=sys.stderr)
-            exit(-1)
+        print("Usage: analyze.py <file>", file=sys.stderr)
+        exit(-1)
 
     spark = SparkSession\
              .builder\
              .appName("PythonWordCount")\
              .getOrCreate()
 
+    # given user
+    given_user_id = '1488844'
 
     # Get all lines from file
-    data = spark.read.text(sys.argv[1]).rdd \
+    netflixRDD = spark.read.text(sys.argv[1]).rdd \
             .map(lambda r: r[0]) \
             .map(lambda line: line.split('\t')) \
-	    .map(lambda x: [x[0], (x[1], x[2])])\
-#            .foreach(lambda x: print(x[1]))
+	    	.map(lambda x: ((x[1], x[2]), x[0])) \
+	    	.groupByKey() \
+	    	.mapValues(list) \
+	    	.filter(lambda x: given_user_id in x[1])
+
+
 
     
 
+    netflixRDD.foreach(lambda x: print(x))
+    
+
     # Get list of user 1488844's movies
-    input_user_id = '1488844'
-    input_user_list = data.filter(lambda x: x[0] == input_user_id)
+    # input_user_list = data.filter(lambda x: x[0] == input_user_id)
 
 
     # counts = lines.flatMap(lambda x: x.split(' ')) \
