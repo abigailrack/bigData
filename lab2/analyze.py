@@ -34,9 +34,9 @@ if __name__ == "__main__":
 	    	.reduceByKey(add)
     
     output = netflixRDD.collect()
-	
-	for (movieID, count) in sorted(output):
-		print("%s: %i" % (movieID, count))
+    
+    for (movieID, count) in sorted(output):
+        print("%s: %i" % (movieID, count))
 
 
 
