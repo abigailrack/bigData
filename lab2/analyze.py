@@ -29,13 +29,19 @@ if __name__ == "__main__":
 	    	.map(lambda x: ((x[1], x[2]), x[0])) \
 	    	.groupByKey() \
 	    	.mapValues(list) \
-	    	.filter(lambda x: given_user_id in x[1])
+	    	.filter(lambda x: given_user_id in x[1]) \
+	    	.flatMap(lambda x: (x,1)) \
+	    	.reduceByKey(add)
+    output = netflixRDD.collect()
+
+	for (word, count) in sorted(output)
+		print("%s: %i" % (word, count))
 
 
 
     
 
-    netflixRDD.foreach(lambda x: print(x))
+    # netflixRDD.foreach(lambda x: print(x))
     
 
     # Get list of user 1488844's movies
