@@ -36,7 +36,6 @@ if __name__ == "__main__":
 
     output = netflixRDD.collect()
     
-    for (movieID, count) in sorted(output, key=lambda x: x[1]):
-        print("%s: %i" % (movieID, count))
+    for (userID, count) in sorted(output, key=lambda x: x[1]):
+        print("%s: %i" % (userID, count))
 spark.stop()
-
