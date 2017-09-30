@@ -32,33 +32,13 @@ if __name__ == "__main__":
             .filter(lambda x: given_user_id in x[1]) \
             .flatMap(lambda x: x[1]) \
             .map(lambda x: (x, 1)) \
-            .reduceByKey(add) \
-            .foreach(lambda x: print(x))
+            .reduceByKey(add)
 
-    # output = netflixRDD.collect()
+    output = netflixRDD.collect()
     
-    # for (movieID, count) in sorted(output):
-    #     print("%s: %i" % (movieID, count))
+    for (movieID, count) in sorted(output):
+        print("%s: %i" % (movieID, count))
 
-
-
-    
-
-    # netflixRDD.foreach(lambda x: print(x))
-    
-
-    # Get list of user 1488844's movies
-    # input_user_list = data.filter(lambda x: x[0] == input_user_id)
-
-
-    # counts = lines.flatMap(lambda x: x.split(' ')) \
-    #       .map(lambda x: (x, 1)) \
-    #       .reduceByKey(add)
-
-    # output = counts.collect()
-
-    # for (word, count) in output:
-    #       print("%s: %i" % (word, count))
 
 spark.stop()
 
