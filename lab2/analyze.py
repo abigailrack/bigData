@@ -26,17 +26,19 @@ if __name__ == "__main__":
     netflixRDD = spark.read.text(sys.argv[1]).rdd \
             .map(lambda r: r[0]) \
             .map(lambda line: line.split('\t')) \
-	    	.map(lambda x: ((x[1], x[2]), x[0])) \
-	    	.groupByKey() \
-	    	.mapValues(list) \
-	    	.filter(lambda x: given_user_id in x[1]) \
-	    	.flatMap(lambda x: (x,1)) \
-	    	.reduceByKey(add)
+            .map(lambda x: ((x[1], x[2]), x[0])) \
+            .groupByKey() \
+            .mapValues(list) \
+            .filter(lambda x: given_user_id in x[1]) \
+            .flatMap(lambda x: x[1]) \
+            .map(lambda x: (x, 1)) \
+            .reduceByKey(add) \
+            .foreach(lambda x: print(x))
+
+    # output = netflixRDD.collect()
     
-    output = netflixRDD.collect()
-    
-    for (movieID, count) in sorted(output):
-        print("%s: %i" % (movieID, count))
+    # for (movieID, count) in sorted(output):
+    #     print("%s: %i" % (movieID, count))
 
 
 
