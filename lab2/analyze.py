@@ -6,9 +6,6 @@ from pyspark.sql import SparkSession
 # For running spark jobs locally using spark-submit, 
 from pyspark import SparkConf, SparkContext
 
-
-#def match
-
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: analyze.py <file>", file=sys.stderr)
