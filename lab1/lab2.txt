@@ -1,5 +1,0 @@
-.map(split)
-.map(combine movie and rating as key)
-.groupByKey() #spark 
-.filter(lambda x: user in x[1])
-.flatmap()
