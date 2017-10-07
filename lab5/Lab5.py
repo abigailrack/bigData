@@ -59,3 +59,20 @@ modelBMI.summary()
 residualBMI = modelBMI.resid
 plt.hist(residualBMI, 20)
 plt.plot(modelBMI.predict(dataBMI2), residualBMI, '.') 
+
+#The residuals don't look quite right. There's a cone pattern. Probably increasing variance.
+
+dataCar = pd.DataFrame(pd.read_csv('car.csv'))
+dataCar.head()
+dataCar.dtypes
+
+modelCar1 = smf.ols(formula='Price ~ C(Make) + C(Type) + Miles + Age', data=dataCar).fit()
+modelCar1.summary()
+
+modelCar2 = smf.ols(formula='Price ~ C(Make) + Miles + Price + Age', data=dataCar).fit()
+modelCar2.summary()
+
+modelCar3 = smf.ols(formula='Price ~ C(Make) + C(Type) + Miles', data=dataCar).fit()
+modelCar3.summary()
+
+
